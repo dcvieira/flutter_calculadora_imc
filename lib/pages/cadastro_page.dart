@@ -1,3 +1,4 @@
+import 'package:calculadora_imc/calculadora.dart';
 import 'package:calculadora_imc/components/bottom_button.dart';
 import 'package:calculadora_imc/components/custom_card.dart';
 import 'package:calculadora_imc/components/icon_content.dart';
@@ -7,6 +8,8 @@ import 'package:flutter/material.dart';
 
 import '../components/slider_altura.dart';
 
+enum Sexo { masculino, feminino }
+
 class CadastroPage extends StatefulWidget {
   const CadastroPage({super.key});
 
@@ -15,11 +18,17 @@ class CadastroPage extends StatefulWidget {
 }
 
 class _CadastroPageState extends State<CadastroPage> {
+  Sexo? sexoSelecionado;
+  int idade = 20;
+  int peso = 50;
+  int altura = 120;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Calculadora IMC'),
+        centerTitle: true,
       ),
       body: Column(
         children: [
@@ -28,6 +37,14 @@ class _CadastroPageState extends State<CadastroPage> {
               children: [
                 Expanded(
                   child: CustomCard(
+                    onPress: () {
+                      setState(() {
+                        sexoSelecionado = Sexo.masculino;
+                      });
+                    },
+                    color: sexoSelecionado == Sexo.masculino
+                        ? kActiveCardColour
+                        : kInactiveCardColour,
                     child: const IconContent(
                       icon: Icons.male,
                       label: 'Masculino',
@@ -36,6 +53,14 @@ class _CadastroPageState extends State<CadastroPage> {
                 ),
                 Expanded(
                   child: CustomCard(
+                    onPress: () {
+                      setState(() {
+                        sexoSelecionado = Sexo.feminino;
+                      });
+                    },
+                    color: sexoSelecionado == Sexo.feminino
+                        ? kActiveCardColour
+                        : kInactiveCardColour,
                     child: const IconContent(
                       icon: Icons.female,
                       label: 'Feminino',
@@ -47,7 +72,15 @@ class _CadastroPageState extends State<CadastroPage> {
           ),
           Expanded(
             child: CustomCard(
-              child: SliderAltura(),
+              color: kActiveCardColour,
+              child: SliderAltura(
+                altura: altura,
+                onChanged: (double novaAltura) {
+                  setState(() {
+                    altura = novaAltura.toInt();
+                  });
+                },
+              ),
             ),
           ),
           Expanded(
@@ -55,15 +88,16 @@ class _CadastroPageState extends State<CadastroPage> {
               children: [
                 Expanded(
                   child: CustomCard(
+                    color: kActiveCardColour,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'IDADE',
+                          'PESO',
                           style: kLabelTextStyle,
                         ),
                         Text(
-                          '12',
+                          peso.toString(),
                           style: kNumberTextStyle,
                         ),
                         Row(
@@ -71,12 +105,24 @@ class _CadastroPageState extends State<CadastroPage> {
                           children: [
                             RoundIconButton(
                               icon: Icons.add,
+                              onPressed: () {
+                                setState(() {
+                                  peso++;
+                                });
+                              },
                             ),
                             SizedBox(
                               width: 10.0,
                             ),
                             RoundIconButton(
                               icon: Icons.remove,
+                              onPressed: () {
+                                if (peso >= 1) {
+                                  setState(() {
+                                    peso--;
+                                  });
+                                }
+                              },
                             ),
                           ],
                         )
@@ -86,6 +132,7 @@ class _CadastroPageState extends State<CadastroPage> {
                 ),
                 Expanded(
                   child: CustomCard(
+                    color: kActiveCardColour,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -94,7 +141,7 @@ class _CadastroPageState extends State<CadastroPage> {
                           style: kLabelTextStyle,
                         ),
                         Text(
-                          '12',
+                          idade.toString(),
                           style: kNumberTextStyle,
                         ),
                         Row(
@@ -102,12 +149,26 @@ class _CadastroPageState extends State<CadastroPage> {
                           children: [
                             RoundIconButton(
                               icon: Icons.add,
+                              onPressed: () {
+                                if (idade <= 120) {
+                                  setState(() {
+                                    idade++;
+                                  });
+                                }
+                              },
                             ),
                             SizedBox(
                               width: 10.0,
                             ),
                             RoundIconButton(
                               icon: Icons.remove,
+                              onPressed: () {
+                                if (idade >= 1) {
+                                  setState(() {
+                                    idade--;
+                                  });
+                                }
+                              },
                             ),
                           ],
                         )
@@ -118,7 +179,42 @@ class _CadastroPageState extends State<CadastroPage> {
               ],
             ),
           ),
-          const BottomButton(buttonTitle: 'Calcular IMC')
+          BottomButton(
+            buttonTitle: 'Calcular IMC',
+            onPressed: () {
+              double imc = Calculadora.calcularIMC(altura: altura, peso: peso);
+              String resultado = Calculadora.obterResultado(imc);
+
+              showModalBottomSheet<void>(
+                context: context,
+                builder: (BuildContext context) {
+                  return Container(
+                    height: 400,
+                    color: kBackgroundColor,
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          const Text(
+                            'Seu IMC é de',
+                            style: kLabelTextStyle,
+                          ),
+                          Text(
+                            imc.toStringAsFixed(2),
+                            style: kNumberTextStyle,
+                          ),
+                          Text(
+                            resultado,
+                            style: kLabelTextStyle,
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              );
+            },
+          )
         ],
       ),
     );
