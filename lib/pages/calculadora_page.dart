@@ -7,14 +7,7 @@ import 'package:flutter/material.dart';
 
 import '../components/slider_altura.dart';
 
-class CadastroPage extends StatefulWidget {
-  const CadastroPage({super.key});
-
-  @override
-  State<CadastroPage> createState() => _CadastroPageState();
-}
-
-class _CadastroPageState extends State<CadastroPage> {
+class CalculadoraPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,17 +51,17 @@ class _CadastroPageState extends State<CadastroPage> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
+                        const Text(
                           'IDADE',
                           style: kLabelTextStyle,
                         ),
-                        Text(
-                          '12',
+                        const Text(
+                          '0',
                           style: kNumberTextStyle,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
+                          children: const [
                             RoundIconButton(
                               icon: Icons.add,
                             ),
@@ -89,17 +82,17 @@ class _CadastroPageState extends State<CadastroPage> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
-                          'IDADE',
+                        const Text(
+                          'PESO',
                           style: kLabelTextStyle,
                         ),
-                        Text(
-                          '12',
+                        const Text(
+                          '0',
                           style: kNumberTextStyle,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
+                          children: const [
                             RoundIconButton(
                               icon: Icons.add,
                             ),

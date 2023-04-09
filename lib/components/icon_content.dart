@@ -17,7 +17,7 @@ class IconContent extends StatelessWidget {
           icon,
           size: 80.0,
         ),
-        SizedBox(
+        const SizedBox(
           height: 15.0,
         ),
         Text(

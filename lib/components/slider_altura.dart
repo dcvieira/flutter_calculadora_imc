@@ -9,7 +9,7 @@ class SliderAltura extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(
+        const Text(
           'ALTURA',
           style: kLabelTextStyle,
         ),
@@ -17,7 +17,7 @@ class SliderAltura extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.baseline,
           textBaseline: TextBaseline.alphabetic,
-          children: <Widget>[
+          children: const <Widget>[
             Text(
               '1.84',
               style: kNumberTextStyle,

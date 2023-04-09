@@ -7,15 +7,14 @@ class BottomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 10.0),
-      //padding: EdgeInsets.only(bottom: 10.0),
+      margin: const EdgeInsets.only(top: 10.0),
       width: double.infinity,
       height: 70.0,
-      color: Color(0xFFEB1555),
+      color: const Color(0xFFEB1555),
       child: Center(
         child: Text(
           buttonTitle,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 25.0,
             fontWeight: FontWeight.bold,
           ),
