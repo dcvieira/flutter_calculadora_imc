@@ -2,6 +2,7 @@ import 'package:calculadora_imc/calculadora.dart';
 import 'package:calculadora_imc/components/bottom_button.dart';
 import 'package:calculadora_imc/components/custom_card.dart';
 import 'package:calculadora_imc/components/icon_content.dart';
+import 'package:calculadora_imc/components/modal_result.dart';
 import 'package:calculadora_imc/components/roundicon_button.dart';
 import 'package:calculadora_imc/constants.dart';
 import 'package:flutter/material.dart';
@@ -10,14 +11,14 @@ import '../components/slider_altura.dart';
 
 enum Sexo { masculino, feminino }
 
-class CadastroPage extends StatefulWidget {
-  const CadastroPage({super.key});
+class CalculadoraPage extends StatefulWidget {
+  const CalculadoraPage({super.key});
 
   @override
-  State<CadastroPage> createState() => _CadastroPageState();
+  State<CalculadoraPage> createState() => _CalculadoraPageState();
 }
 
-class _CadastroPageState extends State<CadastroPage> {
+class _CalculadoraPageState extends State<CalculadoraPage> {
   Sexo? sexoSelecionado;
   int idade = 20;
   int peso = 50;
@@ -92,7 +93,7 @@ class _CadastroPageState extends State<CadastroPage> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
+                        const Text(
                           'PESO',
                           style: kLabelTextStyle,
                         ),
@@ -111,7 +112,7 @@ class _CadastroPageState extends State<CadastroPage> {
                                 });
                               },
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 10.0,
                             ),
                             RoundIconButton(
@@ -136,7 +137,7 @@ class _CadastroPageState extends State<CadastroPage> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
+                        const Text(
                           'IDADE',
                           style: kLabelTextStyle,
                         ),
@@ -157,7 +158,7 @@ class _CadastroPageState extends State<CadastroPage> {
                                 }
                               },
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 10.0,
                             ),
                             RoundIconButton(
@@ -188,29 +189,7 @@ class _CadastroPageState extends State<CadastroPage> {
               showModalBottomSheet<void>(
                 context: context,
                 builder: (BuildContext context) {
-                  return Container(
-                    height: 400,
-                    color: kBackgroundColor,
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          const Text(
-                            'Seu IMC é de',
-                            style: kLabelTextStyle,
-                          ),
-                          Text(
-                            imc.toStringAsFixed(2),
-                            style: kNumberTextStyle,
-                          ),
-                          Text(
-                            resultado,
-                            style: kLabelTextStyle,
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
+                  return ModalResult(imc: imc, resultado: resultado);
                 },
               );
             },

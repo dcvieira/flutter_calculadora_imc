@@ -1,5 +1,5 @@
 import 'package:calculadora_imc/constants.dart';
-import 'package:calculadora_imc/pages/cadastro_page.dart';
+import 'package:calculadora_imc/pages/calculadora_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -20,7 +20,7 @@ class CalculadoraIMC extends StatelessWidget {
           backgroundColor: kBackgroundColor,
         ),
       ),
-      home: CadastroPage(),
+      home: CalculadoraPage(),
     );
   }
 }
