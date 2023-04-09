@@ -12,12 +12,12 @@ class CalculadoraIMC extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData.dark().copyWith(
         primaryColor: kBackgroundColor,
         scaffoldBackgroundColor: kBackgroundColor,
-        appBarTheme: AppBarTheme().copyWith(
-          backgroundColor: kBackgroundColor,
-        ),
+        appBarTheme: const AppBarTheme()
+            .copyWith(backgroundColor: kBackgroundColor, centerTitle: true),
       ),
       home: CalculadoraPage(),
     );
